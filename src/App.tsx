@@ -1,10 +1,14 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import Route from './routes';
+import GlobalStyle from './styles/global';
 
 const App: React.FC = () => {
   return (
-    <div className="App">
-      <h1>Pet Finder</h1>
-    </div>
+    <BrowserRouter>
+      <Route />
+      <GlobalStyle />
+    </BrowserRouter>
   );
 };
 
