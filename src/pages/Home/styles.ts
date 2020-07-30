@@ -16,6 +16,7 @@ export const Container = styled.div`
         display: flex;
         align-items: center;
         padding: 24px 0;
+        color: #26160c;
 
         > svg {
           margin-left: 16px;

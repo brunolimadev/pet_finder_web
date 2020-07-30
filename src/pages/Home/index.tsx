@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { GiJumpingDog } from 'react-icons/gi';
+import { FaCat } from 'react-icons/fa';
 import { Container } from './styles';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
@@ -23,7 +24,6 @@ const Home: React.FC = () => {
     async function loadPets(): Promise<void> {
       const { data } = await apiPetFinder.get('pets');
       setPets(data);
-      console.log(data);
     }
 
     loadPets();
@@ -38,18 +38,24 @@ const Home: React.FC = () => {
           <h2>
             Pets para adoção
             <GiJumpingDog size={60} />
+            <FaCat size={40} />
           </h2>
           <div className="cards">
-            {pets.map(pet => (
-              <Card
-                key={pet.id}
-                name={pet.name}
-                breed={pet.breed}
-                age={pet.age}
-                weight={pet.weight}
-                image={`http://localhost:3333/files/${pet.image}`}
-              />
-            ))}
+            {pets.length > 0 ? (
+              pets.map(pet => (
+                <Card
+                  key={pet.id}
+                  id={pet.id}
+                  name={pet.name}
+                  breed={pet.breed}
+                  age={pet.age}
+                  weight={pet.weight}
+                  image={`http://localhost:3333/files/${pet.image}`}
+                />
+              ))
+            ) : (
+              <p>Que pena, ainda não temos nenhum pet para adoção.</p>
+            )}
           </div>
         </section>
       </main>

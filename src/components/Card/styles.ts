@@ -44,6 +44,7 @@ export const Main = styled.div`
         align-items: center;
         font-weight: bold;
         margin-right: 8px;
+        color: #73523f;
 
         > svg {
           margin-right: 8px;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { FiLogIn, FiUserPlus } from 'react-icons/fi';
+import { FiLogIn, FiUserPlus, FiHome } from 'react-icons/fi';
 
 import logo from '../../assets/PetFinder-logo.png';
 import { Container } from './styles';
@@ -12,13 +12,19 @@ const Header: React.FC = () => {
         <nav>
           <ul>
             <li>
-              <a href="sade">
+              <a href="/">
+                <FiHome />
+                Home
+              </a>
+            </li>
+            <li>
+              <a href="/login">
                 <FiLogIn />
                 Entrar
               </a>
             </li>
             <li>
-              <a href="sdsd">
+              <a href="/logout">
                 <FiUserPlus />
                 Cadastre-se
               </a>

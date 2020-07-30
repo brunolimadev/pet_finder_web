@@ -1,8 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { MdPets } from 'react-icons/md';
 import { Container, Header, Main, Footer } from './styles';
 
 export interface Pets {
+  id: string;
   name: string;
   breed: string;
   age: number;
@@ -10,7 +12,7 @@ export interface Pets {
   image: string;
 }
 
-const Card: React.FC<Pets> = ({ name, breed, age, weight, image }) => {
+const Card: React.FC<Pets> = ({ id, name, breed, age, weight, image }) => {
   return (
     <Container>
       <Header>
@@ -43,7 +45,7 @@ const Card: React.FC<Pets> = ({ name, breed, age, weight, image }) => {
         </ul>
       </Main>
       <Footer>
-        <a href="sdsd">Adotar</a>
+        <Link to={`pets/${id}`}>Adotar</Link>
       </Footer>
     </Container>
   );

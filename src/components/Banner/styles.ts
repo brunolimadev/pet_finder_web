@@ -21,12 +21,14 @@ export const Container = styled.section`
 
     h1 {
       font-size: 40px;
+      color: #26160c;
     }
 
     p {
       display: flex;
       align-items: center;
       font-size: 24px;
+      color: #26160c;
 
       > svg {
         margin-left: 8px;

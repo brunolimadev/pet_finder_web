@@ -15,7 +15,13 @@ export const Container = styled.footer`
     align-items: center;
 
     p {
+      display: flex;
+      align-items: center;
       font-size: 14px;
+
+      svg {
+        margin-right: 8px;
+      }
     }
   }
 `;
