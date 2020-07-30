@@ -1,10 +1,6 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-
   main {
     display: flex;
     flex-direction: column;
@@ -29,9 +25,9 @@ export const Container = styled.div`
 
       .cards {
         display: flex;
+        /* justify-content: space-between; */
         flex-wrap: wrap;
         width: 100%;
-        margin-bottom: 80px;
       }
     }
   }

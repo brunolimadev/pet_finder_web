@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
+import { FiTrash2 } from 'react-icons/fi';
 import { MdPets } from 'react-icons/md';
 import { Container, Header, Main, Footer } from './styles';
+
+import apiPetFinder from '../../services/petFinderApi';
 
 export interface Pets {
   id: string;
@@ -12,9 +15,31 @@ export interface Pets {
   image: string;
 }
 
-const Card: React.FC<Pets> = ({ id, name, breed, age, weight, image }) => {
+const CardHorizontal: React.FC<Pets> = ({
+  id,
+  name,
+  breed,
+  age,
+  weight,
+  image,
+}) => {
+  const token = localStorage.getItem('PetFinder: token');
+
+  const handleOnClickDeletePet = useCallback(
+    async petId => {
+      await apiPetFinder.delete(`/pets/${petId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    },
+    [token],
+  );
   return (
     <Container>
+      <button type="button" onClick={() => handleOnClickDeletePet(id)}>
+        <FiTrash2 size={20} />
+      </button>
       <Header>
         <img src={image} alt="Pet 1" />
         <h3>{name}</h3>
@@ -45,10 +70,10 @@ const Card: React.FC<Pets> = ({ id, name, breed, age, weight, image }) => {
         </ul>
       </Main>
       <Footer>
-        <Link to={`pet/${id}`}>Adotar</Link>
+        <Link to={`pet/${id}`}>Editar</Link>
       </Footer>
     </Container>
   );
 };
 
-export default Card;
+export default CardHorizontal;

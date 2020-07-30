@@ -4,8 +4,7 @@ import { FaCat } from 'react-icons/fa';
 import { Container } from './styles';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
-import Banner from '../../components/Banner';
-import Card from '../../components/Card';
+import CardHorizontal from '../../components/CardHorizontal';
 import apiPetFinder from '../../services/petFinderApi';
 
 interface Pets {
@@ -17,7 +16,7 @@ interface Pets {
   image: string;
 }
 
-const Home: React.FC = () => {
+const MyPets: React.FC = () => {
   const [pets, setPets] = useState<Pets[]>([]);
   const token = localStorage.getItem('PetFinder: token');
   const user = localStorage.getItem('PetFinder: user');
@@ -30,7 +29,7 @@ const Home: React.FC = () => {
         return;
       }
 
-      const { data } = await apiPetFinder.get('pets/custom', {
+      const { data } = await apiPetFinder.get('pets/mypets', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -40,25 +39,22 @@ const Home: React.FC = () => {
     }
 
     loadPets();
-  }, [token, user]);
+  }, [token, user, pets]);
 
   return (
     <Container>
       <Header />
-      <Banner />
       <main>
         <section>
           <h2>
-            {user
-              ? `Pets para adoção - ${JSON.parse(user).city}`
-              : `Pets para adoção`}
+            Meus Pets para Doação
             <GiJumpingDog size={60} />
             <FaCat size={40} />
           </h2>
           <div className="cards">
             {pets.length > 0 ? (
               pets.map(pet => (
-                <Card
+                <CardHorizontal
                   key={pet.id}
                   id={pet.id}
                   name={pet.name}
@@ -69,7 +65,7 @@ const Home: React.FC = () => {
                 />
               ))
             ) : (
-              <p>Que pena, ainda não temos nenhum pet para adoção.</p>
+              <p>Que pena, você ainda não possuí pet para adoção.</p>
             )}
           </div>
         </section>
@@ -79,4 +75,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default MyPets;

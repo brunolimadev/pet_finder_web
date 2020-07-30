@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { MdPets } from 'react-icons/md';
 import { FiLogIn, FiUserPlus, FiHome, FiLogOut } from 'react-icons/fi';
 
 import logo from '../../assets/PetFinder-logo.png';
@@ -18,30 +20,38 @@ const Header: React.FC = () => {
         <nav>
           <ul>
             <li>
-              <a href="/">
+              <Link to="/">
                 <FiHome />
                 Home
-              </a>
+              </Link>
+            </li>
+            <li>
+              {token && user && (
+                <Link to="/pets/my">
+                  <MdPets />
+                  Meus Pets
+                </Link>
+              )}
             </li>
             <li>
               {token && user ? (
-                <a href="/login" onClick={signOut}>
+                <Link to="/login" onClick={signOut}>
                   <FiLogOut />
                   Sair
-                </a>
+                </Link>
               ) : (
-                <a href="/login">
+                <Link to="/login">
                   <FiLogIn />
                   Entrar
-                </a>
+                </Link>
               )}
             </li>
             <li>
               {!token && !user && (
-                <a href="/register">
+                <Link to="/register">
                   <FiUserPlus />
                   Cadastre-se
-                </a>
+                </Link>
               )}
             </li>
           </ul>

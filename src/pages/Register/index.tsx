@@ -93,7 +93,7 @@ const LogIn: React.FC = () => {
 
   return (
     <Container>
-      {registerStatus ? (
+      {!registerStatus ? (
         <div>
           <img src={logo} alt="Logo Pet Finder" />
           <Form ref={formRef} onSubmit={handleSubmit}>

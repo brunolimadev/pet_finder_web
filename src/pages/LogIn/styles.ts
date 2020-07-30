@@ -86,6 +86,13 @@ export const Container = styled.div`
         text-decoration: none;
         text-align: center;
       }
+
+      .msgError {
+        color: red;
+        font-size: 14px;
+        text-align: center;
+        margin-top: 16px;
+      }
     }
   }
 `;
