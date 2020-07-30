@@ -19,11 +19,25 @@ interface Pets {
 
 const Home: React.FC = () => {
   const [pets, setPets] = useState<Pets[]>([]);
+  const token = localStorage.getItem('PetFinder: token');
+  const user = localStorage.getItem('PetFinder: user');
 
   useEffect(() => {
     async function loadPets(): Promise<void> {
-      const { data } = await apiPetFinder.get('pets');
-      setPets(data);
+      if (!token && !user) {
+        const { data } = await apiPetFinder.get('pets');
+        setPets(data);
+        return;
+      }
+
+      const { data } = await apiPetFinder.get('pets/custom', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      // console.log(data[0].pets);
+      setPets(data[0].pets);
     }
 
     loadPets();
