@@ -36,7 +36,7 @@ const Home: React.FC = () => {
         },
       });
 
-      setPets(data[0].pets);
+      setPets(data);
     }
 
     loadPets();

@@ -70,7 +70,7 @@ const CardHorizontal: React.FC<Pets> = ({
         </ul>
       </Main>
       <Footer>
-        <Link to={`pet/${id}`}>Editar</Link>
+        <Link to={`update/${id}`}>Editar</Link>
       </Footer>
     </Container>
   );

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
+import Route from './Route';
 
 // import Route from './Route';
 
@@ -9,6 +10,7 @@ import Register from '../pages/Register';
 import PetDetails from '../pages/PetDetails';
 import MyPets from '../pages/MyPets';
 import AddPet from '../pages/AddPet';
+import UpdatePet from '../pages/UpdatePet';
 
 const Routes: React.FC = () => (
   <Switch>
@@ -16,8 +18,10 @@ const Routes: React.FC = () => (
     <Route path="/login" exact component={LogIn} />
     <Route path="/register" exact component={Register} />
     <Route path="/pet/:id" exact component={PetDetails} />
-    <Route path="/pets/my" exact component={MyPets} />
-    <Route path="/pets/add" exact component={AddPet} />
+    <Route path="/home" exact component={Home} isPrivate />
+    <Route path="/pets/add" exact component={AddPet} isPrivate />
+    <Route path="/pets/update/:id" exact component={UpdatePet} isPrivate />
+    <Route path="/pets/my" exact component={MyPets} isPrivate />
   </Switch>
 );
 

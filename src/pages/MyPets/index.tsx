@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { GiJumpingDog } from 'react-icons/gi';
 import { FaCat } from 'react-icons/fa';
+import axios from 'axios';
 import { Container } from './styles';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
@@ -19,27 +20,34 @@ interface Pets {
 const MyPets: React.FC = () => {
   const [pets, setPets] = useState<Pets[]>([]);
   const token = localStorage.getItem('PetFinder: token');
-  const user = localStorage.getItem('PetFinder: user');
 
   useEffect(() => {
+    const source = axios.CancelToken.source();
+
     async function loadPets(): Promise<void> {
-      if (!token && !user) {
-        const { data } = await apiPetFinder.get('pets');
-        setPets(data);
-        return;
+      try {
+        const { data } = await apiPetFinder.get('pets/mypets', {
+          cancelToken: source.token,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        setPets(data[0].pets);
+      } catch (err) {
+        if (axios.isCancel(err)) {
+        } else {
+          throw err;
+        }
       }
-
-      const { data } = await apiPetFinder.get('pets/mypets', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      setPets(data[0].pets);
     }
 
     loadPets();
-  }, [token, user]);
+
+    return () => {
+      source.cancel();
+    };
+  }, [token, pets]);
 
   return (
     <Container>

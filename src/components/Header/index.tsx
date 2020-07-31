@@ -26,27 +26,27 @@ const Header: React.FC = () => {
         <nav>
           <ul>
             <li>
-              <Link to="/">
+              <Link to={token && user ? '/home' : '/'}>
                 <FiHome />
                 Home
               </Link>
             </li>
-            <li>
-              {token && user && (
+            {token && user && (
+              <li>
                 <Link to="/pets/my">
                   <MdPets />
                   Meus Pets
                 </Link>
-              )}
-            </li>
-            <li>
-              {token && user && (
+              </li>
+            )}
+            {token && user && (
+              <li>
                 <Link to="/pets/add">
                   <FiPlusCircle />
                   Cadastrar Pet
                 </Link>
-              )}
-            </li>
+              </li>
+            )}
             <li>
               {token && user ? (
                 <Link to="/login" onClick={signOut}>
