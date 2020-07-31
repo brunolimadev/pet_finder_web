@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MdPets } from 'react-icons/md';
-import { FiLogIn, FiUserPlus, FiHome, FiLogOut } from 'react-icons/fi';
+import {
+  FiLogIn,
+  FiUserPlus,
+  FiHome,
+  FiLogOut,
+  FiPlusCircle,
+} from 'react-icons/fi';
 
 import logo from '../../assets/PetFinder-logo.png';
 import { Container } from './styles';
@@ -30,6 +36,14 @@ const Header: React.FC = () => {
                 <Link to="/pets/my">
                   <MdPets />
                   Meus Pets
+                </Link>
+              )}
+            </li>
+            <li>
+              {token && user && (
+                <Link to="/pets/add">
+                  <FiPlusCircle />
+                  Cadastrar Pet
                 </Link>
               )}
             </li>

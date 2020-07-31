@@ -39,7 +39,7 @@ const MyPets: React.FC = () => {
     }
 
     loadPets();
-  }, [token, user, pets]);
+  }, [token, user]);
 
   return (
     <Container>

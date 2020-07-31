@@ -17,7 +17,13 @@ const Input: React.FC<InputProps> = ({ name, id, label, ...props }) => {
     registerField({
       name: fieldName,
       ref: inputRef.current,
-      path: 'value',
+      path: 'files[0]',
+      clearValue(ref: HTMLInputElement) {
+        ref.value = '';
+      },
+      setValue(_: HTMLInputElement, value: string) {
+        // setPreview(value);
+      },
     });
   }, [fieldName, registerField]);
 
@@ -26,6 +32,7 @@ const Input: React.FC<InputProps> = ({ name, id, label, ...props }) => {
       <label htmlFor={id}>
         {label}
         <input
+          type="file"
           defaultValue={defaultValue}
           {...props}
           ref={inputRef}

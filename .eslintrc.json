@@ -36,7 +36,9 @@
       "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }],
       "react/jsx-props-no-spreading": "off",
       "no-unused-expressions": "off",
+      "no-param-reassign": "off",
       "import/prefer-default-export": "off",
+      "@typescript-eslint/ban-types": "off",
       "camelcase": "off",
       "import/extensions": [
         "error",

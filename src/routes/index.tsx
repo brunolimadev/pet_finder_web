@@ -8,6 +8,7 @@ import LogIn from '../pages/LogIn';
 import Register from '../pages/Register';
 import PetDetails from '../pages/PetDetails';
 import MyPets from '../pages/MyPets';
+import AddPet from '../pages/AddPet';
 
 const Routes: React.FC = () => (
   <Switch>
@@ -16,6 +17,7 @@ const Routes: React.FC = () => (
     <Route path="/register" exact component={Register} />
     <Route path="/pet/:id" exact component={PetDetails} />
     <Route path="/pets/my" exact component={MyPets} />
+    <Route path="/pets/add" exact component={AddPet} />
   </Switch>
 );
 
