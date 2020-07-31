@@ -53,7 +53,6 @@ const AddPet: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const history = useHistory();
   const [msgError, setMsgError] = useState<MsgError>({} as MsgError);
-  const [registerStatus, setRegisterStatus] = useState<boolean>(false);
   const token = localStorage.getItem('PetFinder: token');
   const user = localStorage.getItem('PetFinder: user');
   const { params } = useRouteMatch<PetParams>();
@@ -72,7 +71,6 @@ const AddPet: React.FC = () => {
     async (data: RegisterFormData) => {
       formRef.current?.setErrors({});
       try {
-        setRegisterStatus(false);
         const schema = Yup.object().shape({
           name: Yup.string().required('Nome do pet é obrigatório'),
           breed: Yup.string().required('Raça do pet é obrigatória'),
@@ -105,8 +103,6 @@ const AddPet: React.FC = () => {
         });
 
         history.push('/pets/my');
-
-        // setRegisterStatus(true);
       } catch (error) {
         if (error instanceof Yup.ValidationError) {
           const errors = validationErrors(error);
@@ -118,7 +114,7 @@ const AddPet: React.FC = () => {
         }
       }
     },
-    [token],
+    [token, history, params.id],
   );
 
   const checkboxOptions: CheckboxOption[] = [
@@ -129,49 +125,43 @@ const AddPet: React.FC = () => {
   return (
     <Container>
       <Header />
-      {!registerStatus ? (
-        <div>
-          <img src={logo} alt="Logo Pet Finder" />
-          <Form
-            initialData={{
-              name: pet?.name,
-              breed: pet?.breed,
-              age: pet?.age,
-              weight: pet?.weight,
-              type: [pet?.type],
-            }}
-            ref={formRef}
-            onSubmit={handleSubmit}
-          >
-            <h2>Cadastrar Novo Pet</h2>
+      <div>
+        <img src={logo} alt="Logo Pet Finder" />
+        <Form
+          initialData={{
+            name: pet?.name,
+            breed: pet?.breed,
+            age: pet?.age,
+            weight: pet?.weight,
+            type: [pet?.type],
+          }}
+          ref={formRef}
+          onSubmit={handleSubmit}
+        >
+          <h2>Cadastrar Novo Pet</h2>
 
-            <Input type="text" name="name" id="name" label="Nome do Pet:" />
-            <Input type="text" name="breed" id="breed" label="Raça:" />
-            <Input type="text" name="age" id="age" label="Idade:" />
-            <Input type="text" name="weight" id="weight" label="Peso:" />
-            <div className="radioButtons">
-              <InputRadio name="type" options={checkboxOptions} />
-            </div>
-            <InputFile name="image" id="image" />
-            <Input
-              type="hidden"
-              name="user_id"
-              id="user_id"
-              value={user && JSON.parse(user).id}
-            />
+          <Input type="text" name="name" id="name" label="Nome do Pet:" />
+          <Input type="text" name="breed" id="breed" label="Raça:" />
+          <Input type="text" name="age" id="age" label="Idade:" />
+          <Input type="text" name="weight" id="weight" label="Peso:" />
+          <div className="radioButtons">
+            <InputRadio name="type" options={checkboxOptions} />
+          </div>
+          <InputFile name="image" id="image" />
+          <Input
+            type="hidden"
+            name="user_id"
+            id="user_id"
+            value={user && JSON.parse(user).id}
+          />
 
-            {msgError.message && <p className="msgError">{msgError.message}</p>}
+          {msgError.message && <p className="msgError">{msgError.message}</p>}
 
-            <button type="submit">Atualizar</button>
-            <Link to="/">Voltar</Link>
-          </Form>
-        </div>
-      ) : (
-        <div className="msgSuccess">
-          <h2>Obrigado por se juntar a nós!</h2>
-          <Link to="/login">Entrar</Link>
-        </div>
-      )}
+          <button type="submit">Atualizar</button>
+          <Link to="/">Voltar</Link>
+        </Form>
+      </div>
+      )
       <Footer />
     </Container>
   );

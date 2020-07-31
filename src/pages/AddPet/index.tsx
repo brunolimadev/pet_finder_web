@@ -1,5 +1,5 @@
 import React, { useCallback, useRef, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
@@ -37,7 +37,7 @@ interface CheckboxOption {
 
 const AddPet: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
-  const history = useHistory();
+
   const [msgError, setMsgError] = useState<MsgError>({} as MsgError);
   const [registerStatus, setRegisterStatus] = useState<boolean>(false);
   const token = localStorage.getItem('PetFinder: token');
