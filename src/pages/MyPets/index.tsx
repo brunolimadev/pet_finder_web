@@ -34,8 +34,12 @@ const MyPets: React.FC = () => {
         });
 
         setPets(data[0].pets);
-      } catch {
-        throw new Error('useEffect Error');
+      } catch (err) {
+        if (axios.isCancel(err)) {
+          console.log('cancel');
+        } else {
+          throw err;
+        }
       }
     }
 

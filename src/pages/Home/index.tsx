@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { GiJumpingDog } from 'react-icons/gi';
 import { FaCat } from 'react-icons/fa';
+import axios from 'axios';
 import { Container } from './styles';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
@@ -23,20 +24,32 @@ const Home: React.FC = () => {
   const user = localStorage.getItem('PetFinder: user');
 
   useEffect(() => {
+    const source = axios.CancelToken.source();
     async function loadPets(): Promise<void> {
-      if (!token && !user) {
-        const { data } = await apiPetFinder.get('pets');
+      try {
+        if (!token && !user) {
+          const { data } = await apiPetFinder.get('pets', {
+            cancelToken: source.token,
+          });
+          setPets(data);
+          return;
+        }
+
+        const { data } = await apiPetFinder.get('pets/custom', {
+          cancelToken: source.token,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
         setPets(data);
-        return;
+      } catch (err) {
+        if (axios.isCancel(err)) {
+          console.log('cancel');
+        } else {
+          throw err;
+        }
       }
-
-      const { data } = await apiPetFinder.get('pets/custom', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      setPets(data);
     }
 
     loadPets();
